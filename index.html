@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divine Dandara - Entrepreneur</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+        :root {
+            --bg-color: #121212;
+            --primary-color: #D4AF37; /* Gold */
+            --text-color: #E0E0E0;
+            --card-bg: #1E1E1E;
+            --border-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.05), transparent 40%),
+                        radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.05), transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 2rem;
+            object-fit: cover;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .hero-content .tagline {
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            color: var(--text-color);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #000;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        /* Subsidiaries & Services Section */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
+        }
+        
+        .card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        /* Partners Section */
+        .partners-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .partner-logo {
+            max-height: 50px;
+            filter: grayscale(100%) contrast(0.5);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+        }
+        
+        .contact-form {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .contact-form button {
+             width: auto;
+             align-self: center;
+        }
+
+        .contact-content .btn-secondary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .contact-content .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        
+        #contact .btn {
+            min-width: 260px;
+        }
+
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Modal for Donation */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 30px;
+            border: 1px solid var(--primary-color);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-content label { display: block; margin-top: 10px; }
+        .modal-content input, .modal-content select, .modal-content button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .modal-content button {
+            background: var(--primary-color);
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--card-bg);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.5s ease-in-out;
+            }
+            .nav-links.nav-active {
+                right: 0;
+            }
+            .nav-links li {
+                margin: 2rem 0;
+            }
+            .nav-toggle {
+                display: block;
+                z-index: 1001; /* Ensure it's above the nav links */
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="#hero" class="nav-logo">DIVINE DANDARA</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#holdings">UFinance</a></li>
+                <li><a href="#subsidiaries">Subsidiaries</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <img src="https://i.ibb.co/tnhNh0L/IMG-20251030-WA0006.jpg" alt="Divine Dandara" class="hero-image animate-on-scroll">
+                    <h1 class="animate-on-scroll">Divine Dandara</h1>
+                    <p class="tagline animate-on-scroll" style="transition-delay: 0.2s;">
+                        Raising African and global youth without racism through digital innovation and earning at home to revolutionize the 6-9 working theme.
+                    </p>
+                    <a href="https://calendly.com/" target="_blank" class="btn btn-primary animate-on-scroll" style="transition-delay: 0.4s;">Book a Meeting</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Stats Section -->
+        <section id="stats" class="container">
+            <div class="stats-grid">
+                <div class="stat-item animate-on-scroll">
+                    <h3 class="counter" data-target="15000">0</h3>
+                    <p>Active Users</p>
+                </div>
+                <div class="stat-item animate-on-scroll" style="transition-delay: 0.2s;">
+                    <h3 class="counter" data-target="4">0</h3>
+                    <p>Subsidiaries</p>
+                </div>
+                <div class="stat-item animate-on-scroll" style="transition-delay: 0.4s;">
+                    <h3 class="counter" data-target="50000">0</h3>
+                    <p>Transactions Processed</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">About Divine Dandara</h2>
+                <p class="animate-on-scroll" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    Divine Dandara is a 19-year-old visionary entrepreneur from Zimbabwe, leading the charge in digital innovation. As the founder and CEO of UFinance Holdings, he is dedicated to creating accessible technological solutions that empower youth globally, fostering economic independence and breaking traditional work paradigms.
+                </p>
+            </div>
+        </section>
+
+        <!-- UFinance Holdings Section -->
+        <section id="holdings" style="background-color: var(--card-bg);">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">UFinance Holdings</h2>
+                <p class="animate-on-scroll" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    UFinance Holdings stands as the parent company driving a multi-faceted approach to the digital economy. Our mission is to build and scale innovative platforms across key technology sectors, ensuring robust and future-proof solutions for a global audience.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Subsidiaries Section -->
+        <section id="subsidiaries">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Our Subsidiaries</h2>
+                <div class="grid-4">
+                    <div class="card animate-on-scroll">
+                        <h3>AI Tech</h3>
+                        <p>Developing cutting-edge artificial intelligence solutions to automate and innovate.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="transition-delay: 0.2s;">
+                        <h3>Crypto Currency</h3>
+                        <p>Pioneering secure and user-friendly platforms for the new age of digital assets.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="transition-delay: 0.4s;">
+                        <h3>Forex Trading</h3>
+                        <p>Providing advanced tools and analytics for navigating the foreign exchange markets.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="transition-delay: 0.6s;">
+                        <h3>Cloud Storage</h3>
+                        <p>Offering reliable and scalable cloud infrastructure for data security and accessibility.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industry Focus / Services Section -->
+        <section id="services" style="background-color: var(--card-bg);">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Industry Focus</h2>
+                <div class="grid-4">
+                     <div class="card animate-on-scroll">
+                        <h3>AI Integration</h3>
+                        <p>Seamlessly integrating AI into business processes for enhanced efficiency.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="transition-delay: 0.2s;">
+                        <h3>Decentralized Finance</h3>
+                        <p>Building the future of finance with secure and transparent DeFi applications.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="transition-delay: 0.4s;">
+                        <h3>Algorithmic Trading</h3>
+                        <p>Leveraging algorithms for intelligent and automated trading strategies.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="transition-delay: 0.6s;">
+                        <h3>Data Management</h3>
+                        <p>Ensuring data integrity and availability through robust cloud solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Big Partners Section -->
+        <section id="partners">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Our Big Partners</h2>
+                <div class="partners-grid animate-on-scroll">
+                    <img src="https://www.logo.wine/a/logo/TradingView/TradingView-Logo.wine.svg" alt="TradingView" class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Deriv_logo.svg" alt="Deriv" class="partner-logo">
+                    <img src="https://www.africadatacentres.com/wp-content/uploads/2021/11/cassava-logo-white-1.png" alt="Cassava Technologies" class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="partner-logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="background-color: var(--card-bg);">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+                <div class="contact-content animate-on-scroll">
+                    <p>Connect with me on Telegram for collaborations and inquiries.</p>
+                    <a href="https://t.me/CEO_Divine" target="_blank" class="btn btn-primary" style="margin: 1rem 0;">Telegram @CEO_Divine</a>
+                    <p style="margin-top: 1.5rem;">Email Founder & CEO</p>
+                    <form class="contact-form" id="contactForm">
+                        <input type="email" id="contactEmail" name="email" placeholder="Your Email" aria-label="Your Email" required>
+                        <input type="text" id="contactSubject" name="subject" placeholder="Subject" aria-label="Subject" required>
+                        <textarea id="contactMessage" name="message" rows="5" placeholder="Message" aria-label="Message" required></textarea>
+                        <button type="submit" class="btn btn-secondary">Send</button>
+                    </form>
+                    <p style="margin-top: 2rem;">Support our mission with a donation.</p>
+                     <button id="donateBtn" class="btn btn-primary">Donate Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 UFinance Holdings. All Rights Reserved by Divine Dandara.</p>
+        </div>
+    </footer>
+    
+    <!-- Donation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Support Our Vision</h2>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" placeholder="Phone" value="0772123456">
+
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Amount" value="5">
+
+            <button id="sendPaymentBtn">Send Payment</button>
+            
+            <div id="response">Waiting for transaction...</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Mobile Navigation Toggle
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+                const icon = navToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+            
+            // Close mobile nav on link click
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('nav-active')) {
+                        navLinks.classList.remove('nav-active');
+                        const icon = navToggle.querySelector('i');
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
+                });
+            });
+
+            // Active nav link highlighting on scroll
+            const sections = document.querySelectorAll('section');
+            const navLi = document.querySelectorAll('.nav-links a');
+
+            window.addEventListener('scroll', ()=> {
+                let current = '';
+                sections.forEach( section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                })
+
+                navLi.forEach( a => {
+                    a.classList.remove('active');
+                    if(a.getAttribute('href').substring(1) === current) {
+                        a.classList.add('active');
+                    }
+                });
+            });
+            
+            // Scroll Animations
+            const scrollElements = document.querySelectorAll('.animate-on-scroll');
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+                );
+            };
+
+            const displayScrollElement = (element) => {
+                element.classList.add('is-visible');
+            };
+
+            const hideScrollElement = (element) => {
+                element.classList.remove('is-visible');
+            };
+
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.25)) {
+                        displayScrollElement(el);
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', () => {
+                handleScrollAnimation();
+            });
+            
+            handleScrollAnimation(); // Initial check
+
+            // Animated Counters
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // The lower the slower
+
+            const animateCounter = (counter) => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = Math.ceil(target / speed);
+
+                    if (count < target) {
+                        counter.innerText = Math.min(count + inc, target);
+                        setTimeout(updateCount, 10);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+                updateCount();
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+
+            // Contact Form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const to = "divinedandara.online@gmail.com";
+                    const subjectInput = document.getElementById('contactSubject');
+                    const messageInput = document.getElementById('contactMessage');
+                    const emailInput = document.getElementById('contactEmail');
+
+                    const subject = encodeURIComponent(subjectInput.value);
+                    const body = encodeURIComponent(
+                        `${messageInput.value}\n\n---\nFrom: ${emailInput.value}`
+                    );
+
+                    // This will open the user's default email client
+                    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+                    
+                    alert('we will reply as soon as possible');
+                    
+                    contactForm.reset();
+                });
+            }
+
+            // Donation Modal
+            const modal = document.getElementById('donationModal');
+            const donateBtn = document.getElementById('donateBtn');
+            const closeBtn = document.querySelector('.close-btn');
+            const sendPaymentBtn = document.getElementById('sendPaymentBtn');
+
+            donateBtn.onclick = () => {
+                modal.style.display = 'flex';
+            }
+            closeBtn.onclick = () => {
+                modal.style.display = 'none';
+            }
+            window.onclick = (event) => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+            
+            sendPaymentBtn.addEventListener('click', () => {
+                const responseDiv = document.getElementById('response');
+                responseDiv.innerText = "Processing...";
+                sendPaymentBtn.disabled = true;
+
+                const payload = {
+                    phone: document.getElementById('phone').value,
+                    amount: parseFloat(document.getElementById('amount').value),
+                    method: 'ecocash'
+                };
+
+                fetch('https://Divinex.pythonanywhere.com/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    responseDiv.innerText = JSON.stringify(data, null, 2);
+                    sendPaymentBtn.disabled = false;
+                })
+                .catch(err => {
+                    responseDiv.innerText = "Error: " + err;
+                    sendPaymentBtn.disabled = false;
+                });
+            });
+        });
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+  </html>
